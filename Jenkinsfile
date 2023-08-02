@@ -25,7 +25,7 @@
       sh "docker build -t ${DOCKERHUB_USERNAME}/nt-d:${BUILD_NUMBER} ."
     }
     stage("Publish") {
-      withDockerRegistry([credentialsId: 'dockerHub']) {
+      withDockerRegistry([credentialsId: 'dockerhub']) {
         sh "docker push ${DOCKERHUB_USERNAME}/NT-d:${BUILD_NUMBER}"
       }
     }
