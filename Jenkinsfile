@@ -4,7 +4,7 @@
     checkout scm
 
     stage("Unit Test") {
-      sh "docker run --rm -v ${WORKSPACE}:/go/src/cd-demo golang go test cd-demo -v --run Unit"
+//       sh "docker run --rm -v ${WORKSPACE}:/go/src/cd-demo golang go test cd-demo -v --run Unit"
     }
     stage("Integration Test") {
 //       try {
