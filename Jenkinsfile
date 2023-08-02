@@ -1,33 +1,9 @@
-  env.DOCKERHUB_USERNAME = 'vipconsult'
+FROM golang
+MAINTAINER Vip Consult Solutions <team@vip-consult.solutions>
 
-  node("docker-test") {
-    checkout scm
 
-    stage("Unit Test") {
-      sh "docker run --rm -v ${WORKSPACE}:/go/src/cd-demo golang go test cd-demo -v --run Unit"
-    }
-    stage("Integration Test") {
-      try {
-        sh "docker build -t cd-demo ."
-        sh "docker rm -f cd-demo || true"
-        sh "docker run -d -p 8080:8080 --name=cd-demo cd-demo"
-        // env variable is used to set the server where go test will connect to run the test
-        sh "docker run --rm -v ${WORKSPACE}:/go/src/cd-demo --link=cd-demo -e SERVER=cd-demo golang go test cd-demo -v --run Integration"
-      }
-      catch(e) {
-        error "Integration Test failed"
-      }finally {
-        sh "docker rm -f cd-demo || true"
-        sh "docker ps -aq | xargs docker rm || true"
-        sh "docker images -aq -f dangling=true | xargs docker rmi || true"
-      }
-    }
-    stage("Build") {
-      sh "docker build -t ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER} ."
-    }
-    stage("Publish") {
-      withDockerRegistry([credentialsId: 'DockerHub']) {
-        sh "docker push ${DOCKERHUB_USERNAME}/cd-demo:${BUILD_NUMBER}"
-      }
-    }
-  }
+ADD . /go/src/cd-demo
+RUN go install cd-demo
+CMD /go/bin/cd-demo
+
+EXPOSE 8080
