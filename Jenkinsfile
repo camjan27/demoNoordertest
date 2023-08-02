@@ -26,7 +26,7 @@
     }
     stage("Publish") {
       withDockerRegistry([credentialsId: 'dockerhub']) {
-        sh "docker push ${DOCKERHUB_USERNAME}/NT-d:${BUILD_NUMBER}"
+        sh "docker push ${DOCKERHUB_USERNAME}/nt-d:${BUILD_NUMBER}"
       }
     }
   }
