@@ -1,9 +1,11 @@
-FROM golang
-MAINTAINER Vip Consult Solutions <team@vip-consult.solutions>
+FROM python:3.7-slim
 
+# Add requirements file in the container
+COPY requirements.txt ./requirements.txt
+RUN pip install -r requirements.txt
 
-ADD . /go/src/cd-demo
-RUN go install cd-demo
-CMD /go/bin/cd-demo
+# Add source code in the container
+COPY main.py ./main.py
 
-EXPOSE 8080
+# Define container entry point (could also work with CMD python main.py)
+ENTRYPOINT ["python", "main.py"]
