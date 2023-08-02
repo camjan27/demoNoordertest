@@ -22,7 +22,7 @@
 //       }
     }
     stage("Build") {
-      sh "docker build -t ${DOCKERHUB_USERNAME}/NT-d:${BUILD_NUMBER} ."
+      sh "docker build -t ${DOCKERHUB_USERNAME}/nt-d:${BUILD_NUMBER} ."
     }
     stage("Publish") {
       withDockerRegistry([credentialsId: 'DockerHub']) {
