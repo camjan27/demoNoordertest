@@ -1,5 +1,4 @@
   env.DOCKERHUB_USERNAME = 'corine27'
-
   node() {
     try {
         stage ("Checkout") {
