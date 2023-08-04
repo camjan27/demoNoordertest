@@ -6,8 +6,8 @@
         checkout scm
     }
 
-    parallel (
-        stage("Verschillende checks") {
+    stage("Verschillende checks") {
+        parallel (
             'lint':{
                 stage("Lint") {
                     sh "echo Run hier je linter"
@@ -23,8 +23,8 @@
                     sh "echo Run hier de security scan"
                 }
             }
-        }
-    )
+        )
+    }
 
     stage("Build") {
       sh "docker build -t ${DOCKERHUB_USERNAME}/nt-demo:${BUILD_NUMBER} ."
