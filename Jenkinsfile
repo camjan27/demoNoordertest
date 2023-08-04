@@ -53,18 +53,4 @@
         println(err.toString())
         println(err.getMessage())
     }
-
-    post {
-        success {
-            // Custom notification or post-build actions on success
-            echo 'Build and deployment successful!'
-        }
-        failure {
-            // Custom notification or post-build actions on failure
-            echo 'Build or deployment failed!'
-        }
-        always {
-            echo 'Run hier je cleanup code'
-        }
-    }
   }
