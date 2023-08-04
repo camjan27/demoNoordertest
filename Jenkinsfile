@@ -43,6 +43,7 @@
         stage("Regressie test") {
             echo 'Maak hier je code voor de regressie test'
             currentBuild.result = 'FAILURE'
+            currentStage.result = 'FAILURE'
         }
 
         stage("Reports") {
